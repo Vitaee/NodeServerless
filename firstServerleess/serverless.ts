@@ -34,7 +34,18 @@ const serverlessConfiguration: AWS = {
           "dynamodb:DeleteItem"
         ],
         Resource: "*"
-      }
+      },
+
+     {
+        Effect: "Allow",
+        Action: [
+            "ssm:GetParameter",
+            "ssm:GetParameters",
+            "ssm:putParameter",
+            "ssm:*"
+        ],
+        Resource: "*"
+      },
     ],
   },
   // import the function via paths
