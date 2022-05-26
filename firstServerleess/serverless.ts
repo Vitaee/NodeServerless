@@ -21,6 +21,7 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
       DYNAMO_TABLE
+      
     },
     iamRoleStatements: [
       {
@@ -46,6 +47,17 @@ const serverlessConfiguration: AWS = {
         ],
         Resource: "*"
       },
+      {
+        Effect: "Allow",
+        Action: [
+            "secretsmanager:*",
+            "secretsmanager:GetSecretValue",
+            "secretsmanager:DescribeSecret",
+            "secretsmanager:ListSecretVersionIds",
+            "secretsmanager:ListSecrets"
+        ],
+        Resource: "*"
+      }
     ],
   },
   // import the function via paths
