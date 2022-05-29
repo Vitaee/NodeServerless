@@ -2,9 +2,11 @@ import type { AWS } from '@serverless/typescript';
 
 import hello from '@functions/hello';
 import hi from '@functions/hi';
+//import getSecrets from 'secret';
 
 const SERVICE_NAME = 'first-api'
 const DYNAMO_TABLE = `${SERVICE_NAME}-dev`
+//const secrets_data = getSecrets();
 
 const serverlessConfiguration: AWS = {
   service: 'first-api',
@@ -20,7 +22,8 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
-      DYNAMO_TABLE
+      DYNAMO_TABLE,
+      //custom: `${secrets_data}`
       
     },
     iamRoleStatements: [
@@ -97,7 +100,7 @@ const serverlessConfiguration: AWS = {
             ReadCapacityUnits:1,
             WriteCapacityUnits:1
           },
-          TableName: DYNAMO_TABLE,
+          TableName: '${self:environment.custom.HOSTNAME}', // TASKS_TABLE: '${self:custom.tasks_table}',
           
         },
       }

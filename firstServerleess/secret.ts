@@ -1,9 +1,9 @@
-const aws = require('aws-sdk');
+import {SecretsManager} from 'aws-sdk';
 
 const getAllSecret = async () => {
-    const secretManager = new aws.SecretsManager( {region:'<your_region>'} );
+    const secretManager = new SecretsManager( {region:'us-east-1'} );
 
-    const data = await secretManager.getSecretValue( {SecretId:"<your_secter_id>"} ).promise();
+    const data = await secretManager.getSecretValue( {SecretId:"can1"} ).promise();
     
     var secrets;
 
@@ -20,7 +20,7 @@ const getAllSecret = async () => {
     return secrets
 }
 
-module.exports.getSecrets = async () => {
+const getSecrets = async () => {
 
     const keys = await getAllSecret();
     return {
@@ -29,3 +29,5 @@ module.exports.getSecrets = async () => {
         DB_PASSWORD: keys.deneme3,
     }
 }
+
+export default getSecrets;
