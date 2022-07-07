@@ -6,7 +6,7 @@ on:
       - master
 defaults:
  run:
-  working-directory: ./firstServerless
+  working-directory: ./firstServerleess
 
 jobs:
   deploy:
