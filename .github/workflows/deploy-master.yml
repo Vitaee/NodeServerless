@@ -1,10 +1,9 @@
 name: Deploy Node Serverless
 
 on:
-  workflow_dispatch: {}
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
