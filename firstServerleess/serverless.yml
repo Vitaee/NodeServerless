@@ -1,9 +1,8 @@
-service: first-api,
+service: first-api
 frameworkVersion: '3'
 custom: 
   webpack:
     webpackConfig: './serverless.ts'
-  SECRETS: ${file(./secret.js):getSecrets}
 provider:
   name: aws
   runtime: nodejs14.x
@@ -13,8 +12,4 @@ plugins:
   - serverless-esbuild
 functions:
   hi:
-    timeout: 20  
-    environment:
-      DB_HOSTNAME: ${self:custom.SECRETS.DB_HOSTNAME}
-      DB_USERNAME: ${self:custom.SECRETS.DB_USERNAME}
-      DB_PASSWORD: ${self:custom.SECRETS.DB_PASSWORD}
+    timeout: 60
