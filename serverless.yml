@@ -1,15 +1,21 @@
 service: first-api
 frameworkVersion: '3'
+
 custom: 
   webpack:
     webpackConfig: './serverless.ts'
+
 provider:
   name: aws
   runtime: nodejs14.x
   stage: dev
   region: us-east-1
+
 plugins: 
   - serverless-esbuild
+
+
 functions:
   hi:
-    timeout: 60
+    timeout: 30
+    handler: src/functions/hi
