@@ -7,7 +7,7 @@ const hi: APIGatewayProxyHandler = async (event) => {
         statusCode: 200,
         body: JSON.stringify({
             message: 'Hi from serverless!',
-            data : ["This is test"]
+            data : ["This is test with github actions!"]
         })
     }
 
