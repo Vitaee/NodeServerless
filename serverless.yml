@@ -7,6 +7,6 @@ provider:
 
 functions:
   api:
-    handler: handler.handler
+    handler: server.handler
     events:
       - httpApi: '*'
