@@ -15,7 +15,7 @@ app.set("trust proxy", true);
 
 
 app.get('/', (req: Request, res: Response) => {
-    res.json('Express server with TypeScript!');
+    res.json( {'msg': 'Express server with TypeScript!'} );
 });
 
 
