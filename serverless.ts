@@ -1,8 +1,9 @@
 import type { AWS } from '@serverless/typescript';
 
-import hi from '@functions/hi';
+import hello from '@functions/hello';
+
 const serverlessConfiguration: AWS = {
-  service: 'first-api',
+  service: 'nodeserverless',
   frameworkVersion: '3',
   plugins: ['serverless-esbuild'],
   provider: {
@@ -16,45 +17,9 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
-    iamRoleStatements: [
-      {
-        Effect: 'Allow',
-        Action: [
-          "dynamodb:Query",
-          "dynamodb:Scan",
-          "dynamodb:GetItem",
-          "dynamodb:PutItem",
-          "dynamodb:UpdateItem",
-          "dynamodb:DeleteItem"
-        ],
-        Resource: "*"
-      },
-
-     {
-        Effect: "Allow",
-        Action: [
-            "ssm:GetParameter",
-            "ssm:GetParameters",
-            "ssm:putParameter",
-            "ssm:*"
-        ],
-        Resource: "*"
-      },
-      {
-        Effect: "Allow",
-        Action: [
-            "secretsmanager:*",
-            "secretsmanager:GetSecretValue",
-            "secretsmanager:DescribeSecret",
-            "secretsmanager:ListSecretVersionIds",
-            "secretsmanager:ListSecrets"
-        ],
-        Resource: "*"
-      }
-    ],
   },
   // import the function via paths
-  functions: { hi },
+  functions: { hello },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -70,4 +35,4 @@ const serverlessConfiguration: AWS = {
   },
 };
 
-module.exports = { serverlessConfiguration }
+module.exports = serverlessConfiguration;

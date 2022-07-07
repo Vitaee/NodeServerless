@@ -1,5 +1,5 @@
 {
-  "name": "first-api",
+  "name": "nodeserverless",
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "@middy/core": "^2.5.3",
-    "@middy/http-json-body-parser": "^2.5.3",
-    "aws-sdk": "^2.1139.0"
+    "@middy/http-json-body-parser": "^2.5.3"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
