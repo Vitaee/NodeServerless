@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-defaults:
- run:
-  working-directory: ./firstServerleess
 
 jobs:
   deploy:
