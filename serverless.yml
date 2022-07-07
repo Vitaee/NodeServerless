@@ -18,4 +18,4 @@ plugins:
 functions:
   hi:
     timeout: 30
-    handler: src/functions/hi
+    handler: src/functions/
