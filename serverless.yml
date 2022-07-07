@@ -1,4 +1,4 @@
-service: aws-node-typescript
+service: aws-node-express-api
 frameworkVersion: '3'
 
 provider:
@@ -6,8 +6,7 @@ provider:
   runtime: nodejs14.x
 
 functions:
-  hello:
-    handler: handler.hello
-
-plugins:
-  - serverless-esbuild
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: '*'
