@@ -1,7 +1,7 @@
 #!/bin/sh
 env="production"
 
-
+fileName = "env.json"
 echo "Deployment started for environment: " $env
 
 #Deploying the lambdas via serverless
