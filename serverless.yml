@@ -17,7 +17,7 @@ provider:
 functions:
   api:
     handler: server.handler
-    environment: ${file(env.json)}
+    env: ${file(env.json)}
     events:
       - httpApi: '*'
 
