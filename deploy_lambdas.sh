@@ -7,7 +7,7 @@ echo "Deployment started for environment: " $env
 #Deploying the lambdas via serverless
 echo "Deploying to Lambda"
 serverless plugin install --name serverless-esbuild serverless-dotenv-plugin serverless-offline 
-serverless deploy --stage staging
+serverless deploy
 
 echo "Lambdas deployed"
 
