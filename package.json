@@ -6,6 +6,7 @@
     "@types/sequelize": "^4.28.14",
     "esbuild": "^0.14.48",
     "nodemon": "^2.0.19",
+    "serverless-dotenv-plugin": "^4.0.1",
     "serverless-esbuild": "^1.31.0",
     "ts-node": "^10.8.2",
     "typescript": "^4.7.4"
@@ -15,7 +16,7 @@
   "description": "Node Typescript Rest Api Project",
   "author": "https://www.github.com/Vitaee",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development SERVER_PORT=3001 sls offline start --stage offline"
+    "dev": "cross-env NODE_ENV=development sls offline start --stage offline"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
