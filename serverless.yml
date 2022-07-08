@@ -5,7 +5,7 @@ custom:
   serverless-offline:
     httpPort: 4000
     noPrependStageInUrl: true
-
+  env: ${file(./env.json)}
 provider:
   name: aws
   runtime: nodejs14.x
@@ -17,7 +17,12 @@ provider:
 functions:
   api:
     handler: server.handler
-    env: ${file(env.json)}
+    environment:
+      DB_NAME: {self:custom.env.DB_NAME}
+      DB_USER: {self:custom.env.DB_USER}
+      DB_PASS: {self:custom.env.DB_PASS}
+      DB_HOST: {self:custom.env.DB_HOST}
+      DB_PORT: {self:custom.env.DB_PORT}
     events:
       - httpApi: '*'
 
