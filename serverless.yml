@@ -4,9 +4,20 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs14.x
+  memorySize: 256
+  timeout: 15
+  httpApi:
+    cors: true
 
 functions:
   api:
     handler: server.handler
     events:
       - httpApi: '*'
+
+
+package:
+  individually: true
+
+plugins:
+  - serverless-offline
