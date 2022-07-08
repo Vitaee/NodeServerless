@@ -21,10 +21,11 @@ jobs:
     - name: install package json
       run: npm install
     - run: npm ci
-    - name: Install Plugin and Deploy
+    - name: Serverless Config
       uses: serverless/github-action@v3.1
       with:
         entrypoint: /bin/sh
+    - name: Run sh script
       run: | 
         chmod +x ./deploy_lambdas.sh
         ./deploy_lambdas.sh
