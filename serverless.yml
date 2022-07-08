@@ -11,13 +11,10 @@ provider:
 
 functions:
   api:
-    handler: ./server.handler
+    handler: server.handler
     events:
       - httpApi: '*'
 
-
-package:
-  individually: true
 
 plugins:
   - serverless-offline
