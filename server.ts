@@ -23,4 +23,5 @@ app.listen(process.env.PORT || 3000, () => {
     console.log("App is running")
 });
 
-export const handler = serverless(app);
+const handler = serverless(app);
+export default handler;
