@@ -1,6 +1,11 @@
 service: aws-node-express-api
 frameworkVersion: '3'
 
+custom:
+  serverless-offline:
+    httpPort: 4000
+    noPrependStageInUrl: true
+
 provider:
   name: aws
   runtime: nodejs14.x
