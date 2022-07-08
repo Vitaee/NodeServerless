@@ -14,6 +14,7 @@ jobs:
         node-version: [14.x]
     steps:
     - uses: actions/checkout@v3
+    - uses: unfor19/install-aws-cli-action@master
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -23,7 +24,6 @@ jobs:
     - run: npm ci
     - name: Serverless Deployment
       uses: serverless/github-action@v3.1
-    - uses: unfor19/install-aws-cli-action@master
       with:
         entrypoint: /bin/sh
         args: -c "sh ./deploy_lambdas.sh"
