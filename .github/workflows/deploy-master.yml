@@ -17,12 +17,15 @@ jobs:
         node-version: [14.x]
     steps:
     - uses: actions/checkout@v3
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+
     - name: install package json
       run: npm install
+
     - name: NPM CI command
       run: npm ci
     
@@ -34,24 +37,19 @@ jobs:
     - name: Install aws s3 cli 
       run:  |
         sudo apt install awscli
+
     - name: Download env.json file
       run: |
         /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
-    
-    - name: Move env json file to project directory
-      run: |
-        sudo mv env.json /home/runner/work/NodeServerless/NodeServerless || true
-        sudo mv env.json /home/runner/work/NodeServerless/  || true
-    
+
     - name: Serverless Install
       run: |
         npm install -g serverless
+
     - name: Serverless Plugin Install
       run: |
         serverless plugin install --name serverless-esbuild serverless-dotenv-plugin serverless-offline
-      #uses: serverless/github-action@v3.1
-      #with:
-      #  args: -c "serverless plugin install --name serverless-esbuild serverless-dotenv-plugin serverless-offline && serverless deploy"
+
     - name: Serverless Deploy
       run: |
         serverless deploy
