@@ -3,7 +3,7 @@ frameworkVersion: '3'
 
 custom:
   serverless-offline:
-    httpPort: 4000
+    httpPort: 3001
     noPrependStageInUrl: true
     
 provider:

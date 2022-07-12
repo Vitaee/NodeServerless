@@ -53,4 +53,8 @@ jobs:
     - name: Serverless Deploy
       run: |
         serverless deploy
+
+    - name: Remove env json file after deployment
+      run: |
+        sudo rm env.json || true
       

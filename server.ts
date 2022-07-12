@@ -37,8 +37,5 @@ app.get('/', async (req: Request, res: Response): Promise<Response> => {
 });
 
 
-app.listen(process.env.SERVER_PORT || 3000, () => {
-    console.log("App is running")
-});
 
-module.exports.handler = serverless(app);
+module.exports.handler = serverless(app);   
