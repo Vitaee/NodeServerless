@@ -31,6 +31,9 @@ jobs:
     - name: Download env.json file
       run: |
         /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
+    - name: Move json file to project directory
+      run: |
+        sudo mv env.json ${{ inputs.working_directory }}
     - name: Serverless Deployment
       uses: serverless/github-action@v3.1
       with:
