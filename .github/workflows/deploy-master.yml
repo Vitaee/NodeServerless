@@ -30,7 +30,7 @@ jobs:
         sudo apt install awscli
     - name: Download env.json file
       run: |
-        /usr/local/bin/aws s3 cp s3://awsbucketvitae/env.json .
+        /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
     - name: Serverless Deployment
       uses: serverless/github-action@v3.1
       with:
