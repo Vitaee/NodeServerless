@@ -25,15 +25,15 @@ jobs:
       run: npm install
     - name: NPM CI command
       run: npm ci
-    - name: Install aws s3 cli 
-      run:  |
-        sudo apt install awscli
-    - name: Download env.json file
-      run: |
-        /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
-    - name: Move json file to project directory
-      run: |
-        sudo mv env.json /home/runner/work/NodeServerless/NodeServerless
+    #- name: Install aws s3 cli 
+    #  run:  |
+    #    sudo apt install awscli
+    #- name: Download env.json file
+    #  run: |
+    #    /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
+    #- name: Move json file to project directory
+    #  run: |
+    #    sudo mv env.json /home/runner/work/NodeServerless/NodeServerless
     - name: Serverless Deployment
       uses: serverless/github-action@v3.1
       with:
