@@ -5,7 +5,7 @@ custom:
   serverless-offline:
     httpPort: 4000
     noPrependStageInUrl: true
-  env: ${file(env.json)}
+  env: ${file(./env.json)}
     
 provider:
   name: aws
