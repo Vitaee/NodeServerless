@@ -25,20 +25,31 @@ jobs:
       run: npm install
     - name: NPM CI command
       run: npm ci
-    #- name: Install aws s3 cli 
-    #  run:  |
-    #    sudo apt install awscli
-    #- name: Download env.json file
-    #  run: |
-    #    /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
     #- name: Move json file to project directory
     #  run: |
     #    sudo mv env.json /home/runner/work/NodeServerless/NodeServerless
-    - name: Serverless Deployment
-      uses: serverless/github-action@v3.1
-      with:
-        args: -c "serverless plugin install --name serverless-esbuild serverless-dotenv-plugin serverless-offline && serverless deploy"
     - name: Remove env json file
       run: |
-        sudo rm env.json
+        sudo rm env.json || true
+        sudo rm /home/runner/work/NodeServerless/NodeServerless/env.json || true
+
+    - name: Install aws s3 cli 
+      run:  |
+        sudo apt install awscli
+    - name: Download env.json file
+      run: |
+        /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
+    
+    - name: Serverless Install
+      run: |
+        npm install -g serverless
+    - name: Serverless Plugin Install
+      run: |
+        serverless plugin install --name serverless-esbuild serverless-dotenv-plugin serverless-offline
+      #uses: serverless/github-action@v3.1
+      #with:
+      #  args: -c "serverless plugin install --name serverless-esbuild serverless-dotenv-plugin serverless-offline && serverless deploy"
+    - name: Serverless Deploy
+      run: |
+        serverless deploy
       
