@@ -9,3 +9,4 @@ node_modules
 
 # Env json file
 env.json
+.env.json
