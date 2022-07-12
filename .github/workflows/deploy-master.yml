@@ -1,0 +1,60 @@
+name: Deploy Node Serverless
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: install package json
+      run: npm install
+
+    - name: NPM CI command
+      run: npm ci
+    
+    - name: Remove env json file
+      run: |
+        sudo rm env.json || true
+        sudo rm /home/runner/work/NodeServerless/NodeServerless/env.json || true
+
+    - name: Install aws s3 cli 
+      run:  |
+        sudo apt install awscli
+
+    - name: Download env.json file
+      run: |
+        /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
+
+    - name: Serverless Install
+      run: |
+        npm install -g serverless
+
+    - name: Serverless Plugin Install
+      run: |
+        serverless plugin install --name serverless-esbuild serverless-dotenv-plugin serverless-offline
+
+    - name: Serverless Deploy
+      run: |
+        serverless deploy
+
+    - name: Remove env json file after deployment
+      run: |
+        sudo rm env.json || true
+      
