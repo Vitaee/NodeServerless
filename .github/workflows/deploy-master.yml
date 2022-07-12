@@ -25,9 +25,7 @@ jobs:
       run: npm install
     - name: NPM CI command
       run: npm ci
-    #- name: Move json file to project directory
-    #  run: |
-    #    sudo mv env.json /home/runner/work/NodeServerless/NodeServerless
+    
     - name: Remove env json file
       run: |
         sudo rm env.json || true
@@ -39,6 +37,11 @@ jobs:
     - name: Download env.json file
       run: |
         /usr/local/bin/aws --region us-east-1 s3 cp s3://awsbucketvitae/env.json .
+    
+    - name: Move env json file to project directory
+      run: |
+        sudo mv env.json /home/runner/work/NodeServerless/NodeServerless || true
+        sudo mv env.json /home/runner/work/NodeServerless/  || true
     
     - name: Serverless Install
       run: |
