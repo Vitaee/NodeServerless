@@ -2,7 +2,7 @@
     "compilerOptions": {
         "sourceMap": true,
         "esModuleInterop": true,
-        "module": "commonjs",
+        "module": "CommonJS",
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "moduleResolution": "node",

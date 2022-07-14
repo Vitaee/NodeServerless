@@ -1,5 +1,3 @@
-import { sequelize } from "../db/dbinstance";
-
 import {
   Association,
   DataTypes,
@@ -22,6 +20,8 @@ import {
   NonAttribute,
   ForeignKey,
 } from "sequelize";
+import { Project } from "./project";
+
 
 type UserAttributes = {
   id: number;
@@ -59,68 +59,31 @@ class User extends  Model<InferAttributes<User, { omit: 'projects' }>, InferCrea
 
 }
 
-User.init(
-  {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
+
+
+export const UsersModel = (sequelize: any, type:any) => {
+  return sequelize.define('users',
+    {
+      id: {
+        type: type.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      email: {
+        type: type.STRING(128),
+        allowNull: false
+      },
+      password: {
+        type: type.STRING(128),
+        allowNull: false
+      },
+      createdAt: type.DATE,
+      updatedAt: type.DATE,
     },
-    email: {
-      type: DataTypes.STRING(128),
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING(128),
-      allowNull: false
-    },
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
-  },
-  {
-    tableName: 'users',
-    sequelize
-  }
+    {
+      tableName: 'users',
+    }
 );
-
-
-class Project extends Model<
-  InferAttributes<Project>,
-  InferCreationAttributes<Project>
-> {
-  declare id: CreationOptional<number>;
-  declare ownerId: ForeignKey<User["id"]>;
-  declare name: string;
-
-  declare owner?: NonAttribute<User>;
-  declare createdAt: CreationOptional<Date>;
-  declare updatedAt: CreationOptional<Date>;
 }
+export { User };
 
-Project.init(
-  {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: new DataTypes.STRING(128),
-      allowNull: false,
-    },
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
-  },
-  {
-    sequelize,
-    tableName: "projects",
-  }
-);
-
-User.hasMany(Project, {
-  sourceKey: 'id',
-  foreignKey: 'ownerId',
-  as: 'projects', // this determines the name in `associations`!
-});
-
-export { Project, User};

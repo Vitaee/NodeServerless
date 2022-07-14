@@ -1,35 +1,37 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
-import {User, Project} from './src/models/user';
-import serverless from 'serverless-http';
+import express, { Application, NextFunction, Request, Response, } from 'express';
 import { config } from 'dotenv';
-import { sequelize } from './src/db/dbinstance';
-
-config();
+import serverless from 'serverless-http';
+import { Users, sequelize } from './src/db/dbinstance';
 
 const app: Application =  express();
+
+config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("trust proxy", true);
 
+const myDb = async (req:Request, res:Response, next:NextFunction) => {
+    await sequelize.sync();
+    next();
+}
 
+app.use(myDb);
 
 
 app.get('/', async (req: Request, res: Response): Promise<Response> => {
     
-    await sequelize.sync();
-
-    const newUser = await User.create({
+    const newUser =  await Users.create({
         email:"test@gmail.com",
         password: "123456"
     });
 
-    const project = await newUser.createProject({
+    const project =  await newUser.createProject({
         name: "test project"
     });
 
-    const ourUser = await User.findByPk(1, {
-        include: [User.associations.projects],
+    const ourUser =  await Users.findByPk(1, {
+        include: [Users.associations.projects],
         rejectOnEmpty: true
     })
 
