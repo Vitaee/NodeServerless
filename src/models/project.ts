@@ -1,5 +1,5 @@
 import { Model } from "sequelize-typescript";
-import { InferAttributes, InferCreationAttributes, CreationOptional, ForeignKey, NonAttribute, DataTypes } from "sequelize";
+import { InferAttributes, InferCreationAttributes, CreationOptional, ForeignKey, NonAttribute, DataTypes, Sequelize } from "sequelize";
 import { User } from "./user";
 
 class Project extends Model<
@@ -17,7 +17,7 @@ class Project extends Model<
 
 
 
-export const ProjectModel = (sequelize: any, type:any) => { 
+export const ProjectModel = (sequelize: Sequelize, type:any) => { 
   return sequelize.define('projects',
     {
       id: {

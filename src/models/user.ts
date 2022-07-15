@@ -61,7 +61,7 @@ class User extends  Model<InferAttributes<User, { omit: 'projects' }>, InferCrea
 
 
 
-export const UsersModel = (sequelize: any, type:any) => {
+export const UsersModel = (sequelize: Sequelize, type:any) => {
   return sequelize.define('users',
     {
       id: {
@@ -71,11 +71,17 @@ export const UsersModel = (sequelize: any, type:any) => {
       },
       email: {
         type: type.STRING(128),
-        allowNull: false
+        allowNull: false,
+        validate: {
+          isEmail: true
+        }
       },
       password: {
         type: type.STRING(128),
-        allowNull: false
+        allowNull: false,
+        validate: {
+          len: { args: [6, 20], msg: "Your password length should between 6 - 20" }
+        }
       },
       createdAt: type.DATE,
       updatedAt: type.DATE,
