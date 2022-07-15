@@ -1,7 +1,7 @@
 import { Response, Router , Request} from "express";
 import { Users } from '../../db/dbinstance';
 import { isMailExist } from '../../middlewares/checkemail';
-const usersRouter = Router();
+const usersRouter: Router = Router();
 
 usersRouter.get('/:id',  async (req: Request, res: Response): Promise<Response> => {
     
@@ -26,7 +26,7 @@ usersRouter.delete('/:id', async (req: Request, res: Response): Promise<Response
     return res.status(200);
 });
 
-usersRouter.post('/register', isMailExist,  async (req: Request, res:Response): Promise<Response> => {
+usersRouter.post('/register',  isMailExist,  async (req: Request, res:Response): Promise<Response> => {
     const newUserPayload = req.body;
 
     try {
