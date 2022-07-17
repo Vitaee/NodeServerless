@@ -26,7 +26,7 @@ const Projects = ProjectModel(sequelize, Sequelize);
 Users.hasMany(Projects, {
     sourceKey: 'id',
     foreignKey: 'ownerId',
-    as: 'projects', // this determines the name in `associations`!
+    as: 'projects',
 });
   
 

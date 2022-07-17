@@ -1,20 +1,5 @@
 import { Model } from "sequelize-typescript";
 import { InferAttributes, InferCreationAttributes, CreationOptional, ForeignKey, NonAttribute, DataTypes, Sequelize } from "sequelize";
-import { User } from "./user";
-
-class Project extends Model<
-  InferAttributes<Project>,
-  InferCreationAttributes<Project>
-> {
-  declare id: CreationOptional<number>;
-  declare ownerId: ForeignKey<User["id"]>;
-  declare name: string;
-
-  declare owner?: NonAttribute<User>;
-  declare createdAt: CreationOptional<Date>;
-  declare updatedAt: CreationOptional<Date>;
-}
-
 
 
 export const ProjectModel = (sequelize: Sequelize, type:any) => { 
@@ -38,6 +23,4 @@ export const ProjectModel = (sequelize: Sequelize, type:any) => {
 
 }
 
-
-export { Project }
 
