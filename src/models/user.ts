@@ -36,9 +36,7 @@ export const UsersModel = (sequelize: Sequelize, type:any) => {
       password: {
         type: type.STRING(128),
         allowNull: false,
-        validate: {
-          len: { args: [6, 20], msg: "Your password length should between 6 - 20" }
-        }
+        
       },
       createdAt: type.DATE,
       updatedAt: type.DATE,

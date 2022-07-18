@@ -1,10 +1,12 @@
 import { Response, Router , Request} from "express";
 import { Users } from '../../db/dbinstance';
 import { isMailExist } from '../../middlewares/checkemail';
+import { auth } from "../../middlewares/checkJwt";
 import { createUser } from "../controllers/user/userCreate";
+import { loginUser } from "../controllers/user/userLogin";
 const usersRouter: Router = Router();
 
-usersRouter.get('/:id',  async (req: Request, res: Response): Promise<Response> => {
+usersRouter.get('/:id', auth, async (req: Request, res: Response): Promise<Response> => {
     
     const { id } = req.params;
 
@@ -12,7 +14,6 @@ usersRouter.get('/:id',  async (req: Request, res: Response): Promise<Response> 
         include: [Users.associations.projects],
         rejectOnEmpty: false
     });
-
     
     const user = toUser ? toUser : "User does not exist" 
 
@@ -40,7 +41,14 @@ usersRouter.post('/register',  isMailExist,  async (req: Request, res:Response):
 });
 
 usersRouter.post('/login', async (req: Request, res:Response): Promise<Response> => {
-    return res.status(200);
+
+    try {
+        const data = await loginUser(req.body);
+        return res.status(200).send({data:data});
+    } catch (err) {
+        return res.status(500).send({ data: err.message });
+    }
+
 });
 
 export default usersRouter;

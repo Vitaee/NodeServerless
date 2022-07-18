@@ -37,11 +37,6 @@ sequelize.authenticate().then( () => {
     console.log("sequelize authenticated!")
 });
 
-/*sequelize.sync().then( () => {
-    console.log('DB and Tables created!')
-}).catch( (err)=> {
-    console.log(err);
-});*/
 
 export { Users , Projects , sequelize}
   
