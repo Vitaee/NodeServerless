@@ -1,9 +1,7 @@
 import { Response, Router , Request} from "express";
 import { Users } from '../../db/dbinstance';
-import { auth } from "../../middlewares/checkJwt";
+import { auth, CustomRequest } from "../../middlewares/checkJwt";
 import { createProject } from "../controllers/projects/projectCreate";
-import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-import { SECRET_KEY } from "../../middlewares/checkJwt";
 
 const projectsRouter: Router = Router();
 
@@ -21,11 +19,9 @@ projectsRouter.delete('/:id', async (req: Request, res: Response): Promise<Respo
 
 projectsRouter.post('/create',  auth,  async (req: Request, res:Response): Promise<Response> => {
     const newProjectPayload = req.body;
-    
-    const str = req.get('Authorization').split(" ")[1];
+    const data = (req as CustomRequest).token;
 
     try {
-        const data = jwt.verify(str, SECRET_KEY);
         const user = await Users.findOne( { where: {email: data['email']} } );
         
         const newProject = await createProject( user.getDataValue('id'), newProjectPayload)
