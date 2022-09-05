@@ -1,32 +1,32 @@
 import { Response, Router , Request} from "express";
 import { Users } from '../../db/dbinstance';
 import { isMailExist } from '../../middlewares/checkemail';
-import { auth } from "../../middlewares/checkJwt";
+import { auth, CustomRequest } from "../../middlewares/checkJwt";
 import { createUser } from "../controllers/user/userCreate";
+import { getUserById } from "../controllers/user/userGetById";
 import { loginUser } from "../controllers/user/userLogin";
+import { updateUser } from "../controllers/user/userUpdate";
 const usersRouter: Router = Router();
 
-usersRouter.get('/:id', auth, async (req: Request, res: Response): Promise<Response> => {
+usersRouter.get('/', auth, async (req: Request, res: Response): Promise<Response> => {
     
-    const { id } = req.params;
-
-    const toUser = await Users.findByPk(id, {
-        include: [Users.associations.projects],
-        rejectOnEmpty: false
-    });
+    const id  = (req as CustomRequest).token["id"];
+    const toUser = await getUserById(id);
     
     const user = toUser ? toUser : "User does not exist" 
 
     return res.status(200).send( { data: user  } );
 });
 
-usersRouter.put('/update/:id', async (req: Request, res: Response): Promise<Response> => {
-    return res.status(200);
+usersRouter.put('/update/', auth,  async (req: Request, res: Response): Promise<Response> => {
+    const { username } = req.body;
+    const id = (req as CustomRequest).token["id"];
+
+    const updatedUser =  await updateUser(username, id);
+
+    return updatedUser ? res.status(200).send({ data: "Your username updated!"}) : res.status(500).send({ data: "Eror during updating user!"})
 });
 
-usersRouter.delete('/:id', async (req: Request, res: Response): Promise<Response> => {
-    return res.status(200);
-});
 
 usersRouter.post('/register',  isMailExist,  async (req: Request, res:Response): Promise<Response> => {
     const newUserPayload = req.body;

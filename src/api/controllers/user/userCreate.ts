@@ -15,6 +15,6 @@ export const createUser = async (data : UserCreate ): Promise<string>=> {
     data.password = hashedPassword;
     const newUser = await Users.create(data,  {fields: ['email', 'username','password'] });
 
-    const token  = jwt.sign( { email: newUser.getDataValue('email')}, SECRET_KEY, { expiresIn: '2 days'  });
+    const token  = jwt.sign( { email: newUser[0].id}, SECRET_KEY, { expiresIn: '2 days'  });
     return token;
 }

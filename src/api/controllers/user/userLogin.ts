@@ -12,10 +12,11 @@ type UserLogin = {
 
 export const loginUser = async (data: UserLogin) : Promise<string | Error>  => {
     const user = await Users.findOne({ where: { email : data.email} });
+    console.log(user)
     const matched = await matchPass(data.password, user.getDataValue('password'));
 
     if (matched){
-        const token = jwt.sign( { email: user.getDataValue('email')}, SECRET_KEY, { expiresIn: '2 days' })
+        const token = jwt.sign( { id: user.getDataValue('id')}, SECRET_KEY, { expiresIn: '2 days' })
         
         return token
     }

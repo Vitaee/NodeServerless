@@ -1,16 +1,17 @@
 import express, { Application, NextFunction, Request, Response, } from 'express';
-import { initDatabase } from './src/middlewares/dbinit';
 import { config } from 'dotenv';
 import serverless from 'serverless-http';
 import routes from './src/api/routes';
+import {sequelize} from './src/db/dbinstance';
 
 const app: Application =  express();
 
 config();
 
+sequelize.sync( { alter: true } );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(initDatabase);
 app.use('/api/v1', routes)
 app.set("trust proxy", true);
 

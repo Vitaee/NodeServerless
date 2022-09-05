@@ -13,10 +13,14 @@ const sequelize = new Sequelize(db_config.db, db_config.username, db_config.pass
     host: process.env.DB_HOST,
     dialect: 'mysql',
     dialectModule: mysql2,
-    port: parseInt(process.env.DB_PORT)
+    port: parseInt(process.env.DB_PORT),
+    logging: false
 });
 
 
+sequelize.authenticate().then( () => {
+    console.log("sequelize authenticated!")
+});
 
 
 const Users = UsersModel(sequelize, Sequelize); 
@@ -28,15 +32,6 @@ Users.hasMany(Projects, {
     foreignKey: 'ownerId',
     as: 'projects',
 });
-  
-
-
-
-
-sequelize.authenticate().then( () => {
-    console.log("sequelize authenticated!")
-});
 
 
 export { Users , Projects , sequelize}
-  
