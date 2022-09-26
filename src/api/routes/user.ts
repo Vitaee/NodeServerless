@@ -1,6 +1,5 @@
 import { Response, Router , Request} from "express";
 import { Users } from '../../db/dbinstance';
-import { isMailExist } from '../../middlewares/checkemail';
 import { auth, CustomRequest } from "../../middlewares/checkJwt";
 import { createUser } from "../controllers/user/userCreate";
 import { getUserById } from "../controllers/user/userGetById";
@@ -28,7 +27,7 @@ usersRouter.put('/update/', auth,  async (req: Request, res: Response): Promise<
 });
 
 
-usersRouter.post('/register',  isMailExist,  async (req: Request, res:Response): Promise<Response> => {
+usersRouter.post('/register',  async (req: Request, res:Response): Promise<Response> => {
     const newUserPayload = req.body;
     
     try {

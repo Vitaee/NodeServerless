@@ -24,7 +24,9 @@ export const UsersModel = (sequelize: Sequelize, type:any) => {
         allowNull: false,
         validate: {
           isEmail: true
-        }
+        },
+        unique:true,
+        
       },
       username: {
         type: type.STRING(30),
