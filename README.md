@@ -19,6 +19,30 @@ This project contains express mysql rest api project with aws lambda.
 ## Usage
 Check simple instructions below. 
 
+### Before Deployment
+For env variables in production, i used s3 bucket. Simply upload your file to s3 then via github actions you can download from s3 to project directory to read variables.
+
+- Setup AWS CLI for your [OS](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html)
+- Upload your example file below;
+```
+touch env.json
+nano env.json
+```
+```json
+{
+"DB_NAME":"PROD_DB_NAME",
+"DB_USER":"PROD_DB_USER",
+"DB_PASS":"PROD_DB_PASS",
+"DB_HOST":"PROD_DB_HOST",
+"DB_PORT":3306
+}
+```
+Finally,
+```
+aws s3 cp env.json  s3://awsbucketvitae/
+
+```
+
 ### Deployment
 
 In order to deploy the project, you need to run the following command:
