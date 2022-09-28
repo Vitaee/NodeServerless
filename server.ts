@@ -8,7 +8,7 @@ const app: Application =  express();
 
 config();
 
-sequelize.sync( { alter: true } );
+//sequelize.sync( { alter: true } );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
